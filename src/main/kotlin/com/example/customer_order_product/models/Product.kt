@@ -13,6 +13,6 @@ class Product(
     var category: Category,
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
-    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var orderDetail: MutableList<OrderDetail>?=null
 ):Base()

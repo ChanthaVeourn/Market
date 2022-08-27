@@ -23,5 +23,7 @@ class Order(
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true, cascade = [CascadeType.ALL])
-    var payment: Payment?=null
+    var payment: Payment?=null,
+
+    var totalAmount:Double? = orderDetails?.map{it.total}?.reduce{acc, total->acc?.plus(total!!)}
 ):Base()

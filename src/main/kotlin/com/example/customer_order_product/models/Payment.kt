@@ -18,11 +18,11 @@ class Payment(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "staffId", foreignKey = ForeignKey(name = "fk_staffId"), referencedColumnName = "id")
     var staff:Staff,
+
     //testing
     var payAmount: Double? = order.orderDetails?.let{
-            order_details -> order_details.
-            map{it.totalAmount}
-            .reduce{ acc, amount-> acc!!.plus(amount!!)
-            }
+            order_details -> order_details
+            .map{it.total}
+            .reduce{ acc, total-> acc!!.plus(total!!) }
     }
 ):Base()
