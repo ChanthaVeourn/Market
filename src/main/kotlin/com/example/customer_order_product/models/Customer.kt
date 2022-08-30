@@ -22,12 +22,12 @@ class Customer(
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @JsonIgnore
     @OneToMany(orphanRemoval = true, mappedBy = "customer", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var orders: MutableList<Order>?=null,
+    var orders: MutableList<Order>?,
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @JsonIgnore
     @OneToMany(orphanRemoval = true, mappedBy = "customer", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var invoiceDetails: MutableList<InvoiceDetail>?=null,
+    var invoiceDetails: MutableList<InvoiceDetail>?= mutableListOf(),
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @JsonIgnore

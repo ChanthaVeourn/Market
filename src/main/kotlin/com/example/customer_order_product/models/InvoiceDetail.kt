@@ -5,12 +5,14 @@ import javax.persistence.*
 @Entity
 class InvoiceDetail(
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "invoiceDetail", cascade = [CascadeType.ALL])
-    var payment: Payment,
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "invoiceDetail", orphanRemoval = true, cascade = [CascadeType.ALL])
+    var payment:Payment? =null,
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_staff_id"), referencedColumnName = "id")
-    var staff: Staff,
+    var staff: Staff? = null,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_order_id"), referencedColumnName = "id")

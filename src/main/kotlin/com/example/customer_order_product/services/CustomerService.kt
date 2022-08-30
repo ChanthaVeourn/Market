@@ -29,20 +29,21 @@ class CustomerService(private val customerRepo: CustomerRepo) {
             total+=totalPrice
             orderDetailsList.add(OrderDetail(newOrder, product, price, quantity, totalPrice))
         }
-
         newOrder.also {
             it.totalAmount = total
             it.orderDetails?.addAll(orderDetailsList)
         }
+        val invoiceDetail = InvoiceDetail(staff = null,
+            customer = customer,
+            order = newOrder,
+            amount_to_pay = total)
 
         customer.orders?.add(newOrder)
+        customer.invoiceDetails?.add(invoiceDetail)
         customerRepo.save(customer)
         return true
     }
 
-    fun payOrder(){
-
-    }
 
 
 }

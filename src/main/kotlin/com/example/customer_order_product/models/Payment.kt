@@ -22,11 +22,8 @@ class Payment(
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invoiceDetailId", foreignKey = ForeignKey(name = "fk_InvoiceDetailId"), referencedColumnName = "id")
-    var invoiceDetail: InvoiceDetail? = null,
+    @JoinColumn(name = "invoiceDetailId", foreignKey = ForeignKey(name = "fk_invoiceDetail_id"), referencedColumnName = "id")
+    var invoiceDetail: InvoiceDetail,
 
-
-    var totalAmount:Double,
     var paidAmount:Double,
-    var payAmount:Double
 ):Base()

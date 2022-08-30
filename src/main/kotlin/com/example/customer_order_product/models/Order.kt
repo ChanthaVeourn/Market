@@ -32,5 +32,6 @@ class Order(
 
     var totalAmount:Double? = null,
 
-    var paidStatus:Boolean = false
+    var paidStatus:Boolean = false,
+    var payingStatus:Boolean = false
 ):Base()

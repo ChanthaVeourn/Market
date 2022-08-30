@@ -36,6 +36,7 @@ class OrderService(private val orderRepo: OrderRepo) {
 
     fun addMoreItems(order:Order?, products_quantities:Map<Product?, Int>?):Boolean{
         order?: return false
+        if(order.payingStatus) return false
         products_quantities?: return false
         val orderDetailsList = mutableListOf<OrderDetail>()
         var total = 0.0
@@ -69,6 +70,7 @@ class OrderService(private val orderRepo: OrderRepo) {
 
     fun updateOrderItems(order: Order?, products_quantities:Map<Product?, Int>?):Boolean{
         order?: return false
+        if(!order.payingStatus) return false
         products_quantities?: return false
         order.orderDetails?: return false
         var preTotal = 0.0
