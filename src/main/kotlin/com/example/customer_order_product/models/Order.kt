@@ -11,19 +11,26 @@ class Order(
     @JoinColumn(name = "cusId", foreignKey = ForeignKey(name = "fk_cusId"), referencedColumnName = "id",)
     var customer:Customer,
 
-    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true, cascade = [CascadeType.ALL])
-    var orderDetails: MutableList<OrderDetail>?=null,
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(foreignKey = ForeignKey(name = "fk_staff_id"))
+    var staff: Staff,
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true, cascade = [CascadeType.ALL])
-    var invoices:MutableList<Invoice>?=null,
+    var orderDetails: MutableList<OrderDetail>? = mutableListOf(),
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true, cascade = [CascadeType.ALL])
-    var payment: Payment?=null,
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true, cascade = [CascadeType.ALL])
+    var invoiceDetails:MutableList<InvoiceDetail>? = mutableListOf(),
 
-    var totalAmount:Double? = orderDetails?.map{it.total}?.reduce{acc, total->acc?.plus(total!!)}
+    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true, cascade = [CascadeType.ALL])
+    var payments: MutableList<Payment>?=null,
+
+    var totalAmount:Double? = null,
+
+    var paidStatus:Boolean = false
 ):Base()

@@ -7,9 +7,12 @@ import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
+import javax.persistence.Index
 import javax.persistence.OneToMany
+import javax.persistence.Table
 
 @Entity
+@Table(indexes = [Index(name = "idx_cus_name", columnList = "name"), Index(name = "idx_cus_phone", columnList = "phone")])
 class Customer(
     @NotNull
     var name:String,
@@ -24,7 +27,7 @@ class Customer(
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @JsonIgnore
     @OneToMany(orphanRemoval = true, mappedBy = "customer", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var invoices: MutableList<Invoice>?=null,
+    var invoiceDetails: MutableList<InvoiceDetail>?=null,
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @JsonIgnore

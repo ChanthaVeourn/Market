@@ -1,20 +1,12 @@
 package com.example.customer_order_product.models
 
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.ForeignKey
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
 @Entity
 class InvoiceDetail(
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(foreignKey = ForeignKey(name = "fk_payment_id"), referencedColumnName = "id")
-    var payment: Payment,
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(foreignKey = ForeignKey(name = "fk_invoice_id"), referencedColumnName = "id")
-    var invoice: Invoice,
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "invoiceDetail", cascade = [CascadeType.ALL])
+    var payment: Payment,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_staff_id"), referencedColumnName = "id")
@@ -23,5 +15,11 @@ class InvoiceDetail(
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_order_id"), referencedColumnName = "id")
     var order: Order,
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(foreignKey = ForeignKey(name = "fk_cus_id"), referencedColumnName = "id")
+    var customer: Customer,
+
+    var amount_to_pay:Double
 
 ):Base()

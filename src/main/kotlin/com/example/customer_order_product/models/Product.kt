@@ -6,6 +6,7 @@ import javax.persistence.*
 @Entity
 class Product(
     var name:String,
+
     var unitPrice:Double,
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -14,5 +15,5 @@ class Product(
 
     @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    var orderDetail: MutableList<OrderDetail>?=null
+    var orderDetail: MutableList<OrderDetail>? = null
 ):Base()

@@ -10,7 +10,8 @@ class Payment(
     @JoinColumn(name = "cusId", foreignKey = ForeignKey(name = "fk_cusId"), referencedColumnName = "id")
     var customer:Customer,
 
-    @OneToOne(fetch = FetchType.LAZY, targetEntity = Order::class)
+    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "orderId", foreignKey = ForeignKey(name = "fk_orderId"), referencedColumnName = "id")
     var order:Order,
 
@@ -19,10 +20,13 @@ class Payment(
     @JoinColumn(name = "staffId", foreignKey = ForeignKey(name = "fk_staffId"), referencedColumnName = "id")
     var staff:Staff,
 
-    //testing
-    var payAmount: Double? = order.orderDetails?.let{
-            order_details -> order_details
-            .map{it.total}
-            .reduce{ acc, total-> acc!!.plus(total!!) }
-    }
+    @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "invoiceDetailId", foreignKey = ForeignKey(name = "fk_InvoiceDetailId"), referencedColumnName = "id")
+    var invoiceDetail: InvoiceDetail? = null,
+
+
+    var totalAmount:Double,
+    var paidAmount:Double,
+    var payAmount:Double
 ):Base()
