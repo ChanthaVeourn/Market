@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "d3689dde-a190-49f4-8f07-76e1f703e502",
+		"name": "Market Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17512126"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/customer/101",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"customer",
+								"101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cus_id\": 101,\r\n    \"staff_id\": 11,\r\n    \"pro_ids_quantities\": {\r\n        \"82\" :10,\r\n        \"110\" : 10\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/customer/order",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"customer",
+								"order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "customer's order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/order/customer?cus_id=101",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"customer"
+							],
+							"query": [
+								{
+									"key": "cus_id",
+									"value": "101"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order's items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/order/items?order_id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"items"
+							],
+							"query": [
+								{
+									"key": "order_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/order/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add more items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order_id\": 1,\r\n    \"pro_ids_quantities\": {\r\n        \"10\" : 2,\r\n        \"123\" : 15,\r\n        \"20\":100\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/order/add-items",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"add-items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update items",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order_id\": 1,\r\n    \"pro_ids_quantities\": {\r\n        \"20\" : 10\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/order/update-item",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"update-item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove order item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/order/remove-item?item_id=5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"remove-item"
+							],
+							"query": [
+								{
+									"key": "item_id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/order/remove-order?order_id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"order",
+								"remove-order"
+							],
+							"query": [
+								{
+									"key": "order_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "pay order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\r\n{\r\n    \"order_id\":1,\r\n    \"customer_id\":101,\r\n    \"staff_id\":22,\r\n    \"pay_amount\": 3675.7000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/payment/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payment",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test customer order-pay",
+			"item": [
+				{
+					"name": "pay one time",
+					"item": [
+						{
+							"name": "customer order product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cus_id\": 101,\r\n    \"staff_id\": 22,\r\n    \"pro_ids_quantities\": {\r\n        \"82\" :10,\r\n        \"110\" : 10\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/customer/order",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"customer",
+										"order"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer pay",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n\r\n{\r\n    \"order_id\":1,\r\n    \"customer_id\":101,\r\n    \"staff_id\":22,\r\n    \"pay_amount\": 5675.7000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/payment/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payment",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "pay 2 times",
+					"item": [
+						{
+							"name": "customer order product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cus_id\": 101,\r\n    \"staff_id\": 22,\r\n    \"pro_ids_quantities\": {\r\n        \"82\" :10,\r\n        \"110\" : 10\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/customer/order",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"customer",
+										"order"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer pay 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n    \"order_id\":1,\r\n    \"customer_id\":101,\r\n    \"staff_id\":22,\r\n    \"pay_amount\": 2000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/payment/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payment",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer pay 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n\r\n{\r\n    \"order_id\":1,\r\n    \"customer_id\":101,\r\n    \"staff_id\":22,\r\n    \"pay_amount\": 3675.7000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/payment/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payment",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
