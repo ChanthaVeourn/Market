@@ -1,13 +1,15 @@
 package com.example.customer_order_product.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
 class Product(
     var name:String,
 
-    var unitPrice:Double,
+    @Column(precision = 10, scale = 2)
+    var unitPrice:BigDecimal,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = ForeignKey(name = "fk_category_id"), referencedColumnName = "id")

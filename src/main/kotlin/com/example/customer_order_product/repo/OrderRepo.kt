@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository
 interface OrderRepo:JpaRepository<Order, Long> {
     fun findByOrderDetailsId(oderDetailId:Long):Order?
     fun findByCustomerId(cus_id:Long):List<OrderDto>?
+
 }

@@ -1,5 +1,6 @@
 package com.example.customer_order_product.models
 
+import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
@@ -12,9 +13,9 @@ class OrderDetail(
     @JoinColumn(name = "product_id", foreignKey =  ForeignKey(name = "fk_product_id"))
     var product:Product,
 
-    var unitPrice:Double,
+    var unitPrice:BigDecimal,
 
     var quantity:Int,
 
-    var total:Double
+    var total:BigDecimal
 ):Base()

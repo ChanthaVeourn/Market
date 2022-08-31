@@ -4,6 +4,7 @@ import com.example.customer_order_product.dto.CustomerDto
 import com.example.customer_order_product.models.*
 import com.example.customer_order_product.repo.CustomerRepo
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 
 @Service
 class CustomerService(private val customerRepo: CustomerRepo) {
@@ -22,10 +23,10 @@ class CustomerService(private val customerRepo: CustomerRepo) {
         products_quantities?: return false
         val newOrder = Order(customer,staff)
         val orderDetailsList = mutableListOf<OrderDetail>()
-        var total = 0.0
+        var total = BigDecimal.valueOf(0.0)
         products_quantities.forEach{(product, quantity) ->
             val price = product?.unitPrice
-            val totalPrice = price!!*quantity
+            val totalPrice = price!!*BigDecimal.valueOf(quantity.toLong())
             total+=totalPrice
             orderDetailsList.add(OrderDetail(newOrder, product, price, quantity, totalPrice))
         }

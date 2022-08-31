@@ -1,6 +1,7 @@
 package com.example.customer_order_product.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -11,7 +12,9 @@ import javax.persistence.*
                   Index(name = "idx_staff_phone", columnList = "phone")])
 class Staff(
     var name:String,
-    var salary:Double,
+
+    @Column(precision = 10, scale = 2)
+    var salary:BigDecimal,
     var phone:String? = null,
     var dob:String,
 

@@ -10,11 +10,22 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/order/")
 class OrderController(private val orderService: OrderService, private val dao: DAO) {
 
-    @DeleteMapping("remove-item")
-    fun removeItem(@RequestParam item_id:Long):ResponseEntity<Any>{
-       if(orderService.removeOrderItem(dao.getOrderByOrderDetailId(item_id), item_id))
-           return ResponseEntity.accepted().build()
-        return ResponseEntity.badRequest().build()
+    @GetMapping
+    fun getAllOrders():ResponseEntity<Any>{
+        orderService.getAllOrders()?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(orderService.getAllOrders())
+    }
+
+    @GetMapping("customer")
+    fun allCustomerOrder(@RequestParam cus_id:Long):ResponseEntity<Any>{
+        orderService.getAllCusOrder(cus_id)?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(orderService.getAllCusOrder(cus_id))
+    }
+
+    @GetMapping("items")
+    fun getAllItems(@RequestParam order_id: Long):ResponseEntity<Any>{
+        orderService.getAllItems(dao.getOrder(order_id))?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(orderService.getAllItems(dao.getOrder(order_id)))
     }
 
     @PostMapping("add-items")
@@ -22,12 +33,6 @@ class OrderController(private val orderService: OrderService, private val dao: D
         if(orderService.addMoreItems(dao.getOrder(orderRequest.order_id), dao.getAllProductQuantity(orderRequest.pro_ids_quantities)))
             return ResponseEntity.accepted().build()
         return ResponseEntity.badRequest().build()
-    }
-
-    @GetMapping("customer")
-    fun allCustomerOrder(@RequestParam cus_id:Long):ResponseEntity<Any>{
-        orderService.getAllCusOrder(cus_id)?: return ResponseEntity.notFound().build()
-        return ResponseEntity.ok(orderService.getAllCusOrder(cus_id))
     }
 
     @PutMapping("update-item")
@@ -45,4 +50,11 @@ class OrderController(private val orderService: OrderService, private val dao: D
         else ResponseEntity.badRequest().build()
     }
 
+    @DeleteMapping("remove-item")
+    fun removeItem(@RequestParam item_id:Long):ResponseEntity<Any>{
+        if(orderService.removeOrderItem(dao.getOrderByOrderDetailId(item_id), item_id))
+            return ResponseEntity.accepted().build()
+        return ResponseEntity.badRequest().build()
+
+    }
 }

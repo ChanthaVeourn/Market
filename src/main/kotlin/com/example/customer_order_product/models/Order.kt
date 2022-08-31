@@ -2,6 +2,7 @@ package com.example.customer_order_product.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
@@ -30,7 +31,7 @@ class Order(
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true, cascade = [CascadeType.ALL])
     var payments: MutableList<Payment>?=null,
 
-    var totalAmount:Double? = null,
+    var totalAmount:BigDecimal? = null,
 
     var paidStatus:Boolean = false,
     var payingStatus:Boolean = false

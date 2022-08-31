@@ -1,6 +1,7 @@
 package com.example.customer_order_product.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
@@ -25,5 +26,5 @@ class Payment(
     @JoinColumn(name = "invoiceDetailId", foreignKey = ForeignKey(name = "fk_invoiceDetail_id"), referencedColumnName = "id")
     var invoiceDetail: InvoiceDetail,
 
-    var paidAmount:Double,
+    var paidAmount:BigDecimal,
 ):Base()
