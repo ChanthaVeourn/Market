@@ -2,3 +2,5 @@ staff: id 1-50
 customer: id 1-300
 product: id 1-250
 category: id 1-20
+order : id 1-850
+order-detail: id 1-1750

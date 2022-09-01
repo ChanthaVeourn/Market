@@ -25,10 +25,12 @@ class CustomerService(private val customerRepo: CustomerRepo) {
         val orderDetailsList = mutableListOf<OrderDetail>()
         var total = BigDecimal.valueOf(0.0)
         products_quantities.forEach{(product, quantity) ->
-            val price = product?.unitPrice
-            val totalPrice = price!!*BigDecimal.valueOf(quantity.toLong())
+            if(product != null && quantity > 0){
+            val price = product.unitPrice
+            val totalPrice = price*BigDecimal.valueOf(quantity.toLong())
             total+=totalPrice
             orderDetailsList.add(OrderDetail(newOrder, product, price, quantity, totalPrice))
+            }
         }
         newOrder.also {
             it.totalAmount = total
@@ -44,7 +46,4 @@ class CustomerService(private val customerRepo: CustomerRepo) {
         customerRepo.save(customer)
         return true
     }
-
-
-
 }
