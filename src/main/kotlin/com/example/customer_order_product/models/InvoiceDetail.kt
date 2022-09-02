@@ -19,7 +19,7 @@ class InvoiceDetail(
     var order: Order,
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(foreignKey = ForeignKey(name = "fk_cus_id"), referencedColumnName = "id")
+    @JoinColumn(name = "cus_id", foreignKey = ForeignKey(name = "fk_cus_id"), referencedColumnName = "id")
     var customer: Customer,
 
     @Column(precision = 19, scale = 4)
