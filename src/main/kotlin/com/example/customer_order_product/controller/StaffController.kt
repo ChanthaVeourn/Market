@@ -1,26 +1,22 @@
 package com.example.customer_order_product.controller
 
+import com.example.customer_order_product.dto.IStaffReportDto
+import com.example.customer_order_product.repo.StaffRepo
 import com.example.customer_order_product.services.StaffService
+import org.springframework.data.domain.Page
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.persistence.TemporalType
 
 @RestController
 @RequestMapping("/api/staff/")
-class StaffController(private val staffService: StaffService) {
+class StaffController(private val staffRepo: StaffRepo) {
 
-    @GetMapping("top-seller")
-    fun getTopSellerOf(@RequestParam start:String, end:String):ResponseEntity<List<Any>>{
-        staffService.getTop5SellerOf(start, end)?: return ResponseEntity.notFound().build()
-        return ResponseEntity.ok(staffService.getTop5SellerOf(start, end))
-    }
-
-    @GetMapping("top-cashier")
-    fun getTopCashierOfYear(@RequestParam year:String):ResponseEntity<List<Any>>{
-        staffService.getTopCashier(year)?: return ResponseEntity.notFound().build()
-        return ResponseEntity.ok().body(staffService.getTopCashier(year))
+    @GetMapping
+    fun getAllStaff():ResponseEntity<Any>{
+        staffRepo.getAll()?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(staffRepo.getAll())
     }
 }
+

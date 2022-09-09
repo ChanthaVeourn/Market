@@ -1,6 +1,5 @@
 package com.example.customer_order_product.models
 
-import org.hibernate.annotations.Type
 import java.math.BigDecimal
 import javax.persistence.*
 

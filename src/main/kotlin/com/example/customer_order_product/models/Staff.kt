@@ -19,6 +19,7 @@ class Staff(
     var dob:String,
 
     @Transient
+    @JsonIgnore
     var age:String = Period.between(LocalDate.parse(dob, DateTimeFormatter.ofPattern("dd-MM-yyyy")), LocalDate.now()).toString(),
 
     @JsonIgnore

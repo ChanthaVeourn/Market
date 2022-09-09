@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface OrderRepo:JpaRepository<Order, Long> {
+interface OrderRepo:JpaRepository<Order, Long>, BaseRepo<Order> {
     fun findByOrderDetailsId(oderDetailId:Long):Order?
     fun findByCustomerId(cus_id:Long):List<OrderDto>?
 

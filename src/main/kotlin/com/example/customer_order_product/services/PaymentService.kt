@@ -3,10 +3,12 @@ package com.example.customer_order_product.services
 import com.example.customer_order_product.models.*
 import com.example.customer_order_product.repo.PaymentRepo
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 
 @Service
 class PaymentService(private val paymentRepo: PaymentRepo) {
+    @Transactional
     fun createPayment(order: Order?, customer: Customer?, staff: Staff?, pay_amount:Double ):Boolean{
         order?: return false
         customer?: return false
