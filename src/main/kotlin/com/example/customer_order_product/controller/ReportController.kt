@@ -12,7 +12,7 @@ class ReportController(private val reportService: ReportService,
                        private val staffService: StaffService) {
 
     @GetMapping("staff-key-operation")
-    fun getById(@RequestBody queryOption: KeyOperationQueryRequest?):ResponseEntity<Any>{
+    fun getStaffByKeyOperation(@RequestBody queryOption: KeyOperationQueryRequest?):ResponseEntity<Any>{
         queryOption?: return ResponseEntity.badRequest().build()
         if(queryOption.key == null && queryOption.operation == null && queryOption.value == null){
             return ResponseEntity.badRequest().build()
@@ -20,7 +20,15 @@ class ReportController(private val reportService: ReportService,
         reportService.getStaffByKeyOperationValue(queryOption)?: return ResponseEntity.badRequest().build()
         return ResponseEntity.ok(reportService.getStaffByKeyOperationValue(queryOption))
     }
-
+    @GetMapping("customer-key-operation")
+    fun getCustomerByKeyOperation(@RequestBody queryOption: KeyOperationQueryRequest?):ResponseEntity<Any>{
+        queryOption?: return ResponseEntity.badRequest().build()
+        if(queryOption.key == null && queryOption.operation == null && queryOption.value == null){
+            return ResponseEntity.badRequest().build()
+        }
+        reportService.getStaffByKeyOperationValue(queryOption)?: return ResponseEntity.badRequest().build()
+        return ResponseEntity.ok(reportService.getStaffByKeyOperationValue(queryOption))
+    }
     @GetMapping("top-seller")
     fun getTopSellerOf(@RequestParam start:String, end:String): ResponseEntity<List<Any>> {
         staffService.getTopSellerPageableOf(start, end)?: return ResponseEntity.notFound().build()
