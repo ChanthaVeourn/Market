@@ -26,8 +26,8 @@ class ReportController(private val reportService: ReportService,
         if(queryOption.key == null && queryOption.operation == null && queryOption.value == null){
             return ResponseEntity.badRequest().build()
         }
-        reportService.getStaffByKeyOperationValue(queryOption)?: return ResponseEntity.badRequest().build()
-        return ResponseEntity.ok(reportService.getStaffByKeyOperationValue(queryOption))
+        reportService.getCustomerByKeyOperationValue(queryOption)?: return ResponseEntity.badRequest().build()
+        return ResponseEntity.ok(reportService.getCustomerByKeyOperationValue(queryOption))
     }
     @GetMapping("top-seller")
     fun getTopSellerOf(@RequestParam start:String, end:String): ResponseEntity<List<Any>> {
