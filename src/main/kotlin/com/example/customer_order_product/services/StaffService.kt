@@ -2,9 +2,6 @@ package com.example.customer_order_product.services
 
 import com.example.customer_order_product.dto.IStaffReportDto
 import com.example.customer_order_product.repo.StaffRepo
-import com.example.customer_order_product.utils.SearchCriteria
-import com.example.customer_order_product.utils.StaffSpecification
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 

@@ -2,7 +2,7 @@ package com.example.customer_order_product.controller
 
 import com.example.customer_order_product.services.ReportService
 import com.example.customer_order_product.services.StaffService
-import com.example.customer_order_product.utils.StaffKeyOperationQuery
+import com.example.customer_order_product.requestClass.KeyOperationQueryRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -12,11 +12,13 @@ class ReportController(private val reportService: ReportService,
                        private val staffService: StaffService) {
 
     @GetMapping("staff-key-operation")
-    fun getById(@RequestBody queryOption:StaffKeyOperationQuery?):ResponseEntity<Any>{
-        if(queryOption?.key == null && queryOption?.operation == null && queryOption?.value == null){
+    fun getById(@RequestBody queryOption: KeyOperationQueryRequest?):ResponseEntity<Any>{
+        queryOption?: return ResponseEntity.badRequest().build()
+        if(queryOption.key == null && queryOption.operation == null && queryOption.value == null){
             return ResponseEntity.badRequest().build()
         }
-        return ResponseEntity.ok(reportService.getStaffByKeyOperationValue(queryOption.key!!, queryOption.operation!!, queryOption.value!!))
+        reportService.getStaffByKeyOperationValue(queryOption)?: return ResponseEntity.badRequest().build()
+        return ResponseEntity.ok(reportService.getStaffByKeyOperationValue(queryOption))
     }
 
     @GetMapping("top-seller")
