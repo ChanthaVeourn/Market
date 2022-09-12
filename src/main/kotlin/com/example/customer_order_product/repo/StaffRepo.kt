@@ -22,12 +22,13 @@ interface StaffRepo:JpaRepository<Staff, Long>, BaseRepo<Staff> {
             "from Staff s join Payment p on s.id = p.staff.id " +
             "where p.createdDate >= cast(concat('01-01-',:year) as date) and p.createdDate <= cast(concat('12-31-', :year) as date) " +
             "group by id " +
-            "order by sum(p.paidAmount) desc")
+            "order by total desc")
     fun getAllCashierOfYearOrderIncome(year:String):List<IStaffReportDto>?
 
     @Query("select s.id as id, s.name as name, s.salary as salary, sum(o.total_amount) as total " +
             "from staff s join \"order\" o on s.id = o.staff_id " +
-            "where o.created_date between cast(concat('01-01-',:year) as date) and cast(concat('12-31-', :year) as date) and o.paid_status = 'true' " +
+            "where o.created_date between cast(concat('01-01-',:year) as date) and cast(concat('12-31-', :year) as date) " +
+            "and o.paid_status = 'true' " +
             "group by s.id " +
             "order by total desc " +
             "fetch first :topNumber row only",

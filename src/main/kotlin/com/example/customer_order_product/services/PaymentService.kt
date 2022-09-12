@@ -10,11 +10,13 @@ import java.math.BigDecimal
 class PaymentService(private val paymentRepo: PaymentRepo) {
     @Transactional
     fun createPayment(order: Order?, customer: Customer?, staff: Staff?, pay_amount:Double ):Boolean{
+
         order?: return false
         customer?: return false
         staff?: return false
         if(pay_amount <= 0.0) return false
         if (order.paidStatus) return false
+
         if(!order.payingStatus) order.payingStatus = true
         if(!order.invoiceDetails.isNullOrEmpty()) {
 
@@ -39,7 +41,8 @@ class PaymentService(private val paymentRepo: PaymentRepo) {
                 amount_to_pay = toPay)
             customer.invoiceDetails?.add(newInvoiceDetail)
             paymentRepo.save(payment)
+            return true
         }
-        return true
+        return false
     }
 }

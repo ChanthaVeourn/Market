@@ -55,6 +55,5 @@ class OrderController(private val orderService: OrderService, private val dao: D
         if(orderService.removeOrderItem(dao.getOrderByOrderDetailId(item_id), item_id))
             return ResponseEntity.accepted().build()
         return ResponseEntity.badRequest().build()
-
     }
 }

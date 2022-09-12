@@ -24,7 +24,7 @@ class DAO(private val productRepo: ProductRepo,
     fun getAllProductQuantity(proIdsQuantities:Map<String, Int>):Map<Product?, Int>{
         val productsQuantities = mutableMapOf<Product?, Int>()
         proIdsQuantities.forEach{ (pro_id, quantity) ->
-            productsQuantities[productRepo.findById(pro_id.toLong()).orElse(null)] = quantity
+            productsQuantities[getProduct(pro_id.toLong())] = quantity
         }
         return productsQuantities
     }
